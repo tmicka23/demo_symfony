@@ -1,0 +1,34 @@
+version: '3.8'                              #check if there is a new docker compose version
+services:
+  app_db:
+    image: mysql:8.1.0                      #check the mysql version you need for your project
+    command: --default-authentication-plugin=mysql_native_password
+    environment:
+      MYSQL_DATABASE: demo_symfony          #you can change the database name here
+      MYSQL_ALLOW_EMPTY_PASSWORD: 'yes'
+    volumes:
+      - ./mysql_data:/var/lib/mysql         #this line maps the content of ./mysql_data in your pc to the /var/lib/mysql of the container
+    networks:
+      - backend
+  app_web:
+    build: .
+    ports:
+      - "80:80"                             #this line maps your pc port to the container port
+    depends_on:
+      - app_db                              #this line links this container to the db container
+    volumes:
+      - ./public:/var/www/public            #this line maps the content of ./html in your pc to the /var/www/html of the container
+    networks:
+      - backend
+  app_phpmyadmin:
+    image: phpmyadmin/phpmyadmin
+    ports:
+      - "8080:80"                            #this line maps your pc port to the container port
+    depends_on:
+      - backend_db                           #this line links this container to the db container
+    environment:
+      PMA_HOST: app_db
+    networks:
+      - backend
+networks:
+  backend:
