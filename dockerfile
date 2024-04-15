@@ -26,9 +26,6 @@ COPY . /var/www
 # copy the entrypoint script into the container
 COPY .docker/entrypoint.sh /entrypoint.sh
 
-# remove the local environment variables file
-RUN rm /var/www/.env.local
-
 # set the working directory
 WORKDIR /var/www
 # enable container to execute the entrypoint script
