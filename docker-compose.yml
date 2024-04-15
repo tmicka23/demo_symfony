@@ -25,7 +25,7 @@ services:
     ports:
       - "8080:80"                            #this line maps your pc port to the container port
     depends_on:
-      - backend_db                           #this line links this container to the db container
+      - app_db                           #this line links this container to the db container
     environment:
       PMA_HOST: app_db
     networks:
