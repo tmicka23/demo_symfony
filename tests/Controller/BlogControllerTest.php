@@ -31,7 +31,7 @@ final class BlogControllerTest extends WebTestCase
     public function testIndex(): void
     {
         $client = static::createClient();
-        $crawler = $client->request('GET', '/en/blog/');
+        $crawler = $client->request('GET', '/en/blogs/');
 
         $this->assertResponseIsSuccessful();
 
